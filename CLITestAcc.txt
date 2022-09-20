@@ -1,0 +1,147 @@
+The following CLI creates a Project ADI, a Sub-ADI for transactions for the project, and a Person ADI,
+and a sub-ADI for Investor Person Type.  Also funds needed wallets for transactions to occur.
+**********************************************************************************************
+It also creates Signature Keys needed to ad Transactions to a project and Investor Person type to a 
+Person.
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate account generate
+Password: ************
+        name            :       a2ecbc9999f825a78214da4333e966ad7ab8dd226537e9d7
+        lite account    :       acc://a2ecbc9999f825a78214da4333e966ad7ab8dd226537e9d7/ACME
+        public key      :       afd6456fd16ef5bc96a47025733c6585f164718fb12641dd360de5938944cde6
+        key type        :       ed25519
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate faucet 
+            acc://a2ecbc9999f825a78214da4333e966ad7ab8dd226537e9d7/ACME
+
+        Transaction Hash        : 69cc78f6affcf7dff6738d891934617b245d1e73206d100fbfb89da76a2d7936
+        Signature 0 Hash        : bd126115e94dac1810170274cf3ca5cef10ceff80481fbbd50d475023ca8e297
+        Simple Hash             : fc21e30d4a5f964f1eb107cfd2fa17900e5739cf0e762351f59811e55f4273e2
+        Error code              : ok
+        Result                  :
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate credits 
+            acc://a2ecbc9999f825a78214da4333e966ad7ab8dd226537e9d7/ACME 
+            acc://a2ecbc9999f825a78214da4333e966ad7ab8dd226537e9d7/ACME 15000
+
+Password: ************
+
+        Transaction Hash        : db0692b96d870d0b931e76ab27a254e20970060e8fc2a95cc18c791fd02d2fd4
+        Signature 0 Hash        : f8ec7024ea96109e76f420826b031c82e22e5b30da61d731ad83f98b92330236
+        Simple Hash             : f678867d21a695a0c82824e890b394a29216c8e405a0a52a2bc2d4b9abc93066
+        Error code              : ok
+        Result                  : Oracle        $5000.00 / ACME
+                                  Credits       15000.00
+                                  Amount        0.03000000 ACME
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate key generate ProjectKey10200
+Password: ************
+        name            :       ProjectKey10200
+        lite account    :       acc://160ac0319d14de7f78f7f044f94f3dc10ed41c3209a1268e/ACME
+        public key      :       fd777c3c4f9cef48777b5385206ec9c912ef6cdfd9f533d41a01c74a492ae650
+        key type        :       ed25519
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate adi create 
+       acc://a2ecbc9999f825a78214da4333e966ad7ab8dd226537e9d7/ACME acc://Project10200.acme ProjectKey10200
+Password: ************
+
+        Transaction Hash        : 8adcd237162252ee3f25a9869a280723f003ac341cd78ba21c285c0d722bfb37
+        Signature 0 Hash        : f865182061a9a88cef5d92dcc087d6ae703d39abf6982c4f13a5fca6ce09788c
+        Simple Hash             : 3313392b8ea7096a5324dc47cf1d85c4d4ddf732c7fbaf667c401de5f816e8d7
+        Error code              : ok
+        Result                  :
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate key generate PersonKey505011
+Password: ************
+        name            :       PersonKey505011
+        lite account    :       acc://0f1d269abc2ffef13a09d564e06cafc060955f09cc6a42be/ACME
+        public key      :       0f3d617b1db91a3e5cfd68668fa1e721902ef7227a266eb62e50b7a9b46f8e2f
+        key type        :       ed25519
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate adi create 
+       acc://a2ecbc9999f825a78214da4333e966ad7ab8dd226537e9d7/ACME acc://Person-505011.acme PersonKey505011
+Password: ************
+
+        Transaction Hash        : c8c887eb79b5155dc76a2e9323334230493cafd9c935ecbb8927f784ffee9969
+        Signature 0 Hash        : 4264ce31893e78c87329273cb3494368dce5fbc943ba24233f1640fb777077b9
+        Simple Hash             : 9861a57e3d4959e84fa6a1dbb86a4692e6b0f79e4eb3ea4bca42fc7478c2e6db
+        Error code              : ok
+        Result                  :
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate key generate InvestorKey505011
+Password: ************
+        name            :       InvestorKey505011
+        lite account    :       acc://54abb0af85df5552b032fdd3368872a9d3d6f79e36ab0e06/ACME
+        public key      :       4474b508ac069fe36b7e7b88579d6d64a4df0c968bcf6a78c5d1038cebc960e3
+        key type        :       ed25519
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate adi create 
+       acc://Person-505011.acme InvestorKey505011 acc://Investor-505011.acme InvestorKey505011
+Password: ************
+Error: failed to get key for "acc://Person-505011.acme" :
+        Message         :       Accumulate Error
+        Error Code      :       ErrorCode{-33501}
+        Detail          :       no authority of acc://Person-505011.acme holds 54ABB0AF85DF5552B032FDD3368872A9D3D6F79EC77AC93BFEC7BD05EA097884
+
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate credits 
+      acc://a2ecbc9999f825a78214da4333e966ad7ab8dd226537e9d7/ACME acc://Person-505011.
+      acme/book/1 15000
+
+Password: ************
+
+        Transaction Hash        : 87ea198553b0e2c06c7c8a51be6acbcf96e9ed947f8d7b68beb4e9803060dfb3
+        Signature 0 Hash        : 4592fa0bfedf28420ce02fe2ede191d3291f46f438b925612da95cfb01720432
+        Simple Hash             : 71aecdf92d070d960ce45cfa0aa7aefe156010d0c310869c6034ba86c68cf95f
+        Error code              : ok
+        Result                  : Oracle        $5000.00 / ACME
+                                  Credits       15000.00
+                                  Amount        0.03000000 ACME
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate adi create acc://Person-505011.acme PersonKey505011 acc://Investor-505011.acme InvestorKey505011
+Password: ************
+
+        Transaction Hash        : 6040ad13ddc40c8f3e193cc6c019aeedbfdc8b9ab624f1b3dc2c9395a078ca6f
+        Signature 0 Hash        : 7b670df06969254299d75353d6c2e713e8fd48ebfca5933038ff1c40b7c3cd48
+        Simple Hash             : a3a4899766c0c4b7241ef37665a4a36bcb6dd8de360038b08673479467129def
+        Error code              : ok
+        Result                  :
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate key generate ProjTransKey10200
+Password: ************
+        name            :       ProjTransKey10200
+        lite account    :       acc://5d0e9809ac1c6a44df844499c0482f79c38f36762f1bc14c/ACME
+        public key      :       f9289acdc72380cdda8b7a6ae998e3483e327c4bed2ee09a7c9b0481f5977007
+        key type        :       ed25519
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate credits acc://a2ecbc9999f825a78214da4333e966ad7ab8dd226537e9d7/ACME acc://ProjectKey10200.acme/book/1 15000
+Password: ************
+
+        Transaction Hash        : 72e62b2f997bd6034dbf7278fc84b9ef62141202f90ee0271f47c9178a79feae
+        Signature 0 Hash        : 5f1b39097e08072617c41e38eb2fbecf055a3cf31bf12b9bab82c81deffded19
+        Simple Hash             : 1666078c7cbd3f4f9031ac6adefc525d3f2e9382e7f82dac85a13adf56995a83
+        Error code              : ok
+        Result                  : Oracle        $5000.00 / ACME
+                                  Credits       15000.00
+                                  Amount        0.03000000 ACME
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate credits acc://a2ecbc9999f825a78214da4333e966ad7ab8dd226537e9d7/ACME acc://Project10200.acme/book/1 15000
+Password: ************
+
+        Transaction Hash        : f1a7eff21caad7a77d96cffdc1db7fe8efe5c0bd725fa61f10f8c1b3692d4030
+        Signature 0 Hash        : 5929ad4428b382eb3b94d780526ae0cedecf6335ac8e8bef7b7d44527daefb7d
+        Simple Hash             : 2d59f98182655fc7b64046559f36d3b0cff112ed8933f9252d211902e300cef1
+        Error code              : ok
+        Result                  : Oracle        $5000.00 / ACME
+                                  Credits       15000.00
+                                  Amount        0.03000000 ACME
+
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$ ./accumulate adi create acc://Project10200.acme ProjectKey10200 acc://ProjTrans10200.acme ProjTransKey10200
+Password: ************
+
+        Transaction Hash        : acbb8c71c2dfc191345e1642b91709ef4af8b9f67e08a46c6040cf2c7e19113d
+        Signature 0 Hash        : a1924b9df594c7cf8283d9c7729c69ed84320788cfe81f763fee7fba4984a9f1
+        Simple Hash             : 9cd5ae0cf0c06d189635698bc641b29a48011e0706fbd401d71c34cde64f805f
+        Error code              : ok
+        Result                  :
+rwbell@Richards-Alienware-Laptop:~/accumulate/accumulate$
+
